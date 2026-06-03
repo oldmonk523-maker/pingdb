@@ -7,11 +7,9 @@ jobs:
   ping:
     runs-on: ubuntu-latest
     steps:
-      - name: Insert Row to Supabase Table
+      - name: Invoke Keep Alive Remote Procedure
         run: |
           curl -i -X POST "https://supabase.co" \
           -H "apikey: ${{ secrets.SUPABASE_ANON_KEY }}" \
           -H "Authorization: Bearer ${{ secrets.SUPABASE_ANON_KEY }}" \
-          -H "Content-Type: application/json" \
-          -H "Prefer: return=representation" \
-          -d '{}'
+          -H "Content-Type: application/json"
