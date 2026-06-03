@@ -1,16 +1,17 @@
 name: Keep Supabase Awake
 on:
+  workflow_dispatch:
   schedule:
-    - cron: '0 0 */3 * *' # Automatically runs every 3 days
-  workflow_dispatch: # Allows you to manually click "Run"
+    - cron: '0 0 */3 * *'
 jobs:
   ping:
     runs-on: ubuntu-latest
     steps:
       - name: Insert Row to Supabase Table
         run: |
-          curl -X POST "${{ secrets.SUPABASE_URL }}/rest/v1/keep_alive" \
+          curl -i -X POST "https://supabase.co" \
           -H "apikey: ${{ secrets.SUPABASE_ANON_KEY }}" \
           -H "Authorization: Bearer ${{ secrets.SUPABASE_ANON_KEY }}" \
           -H "Content-Type: application/json" \
+          -H "Prefer: return=representation" \
           -d '{}'
